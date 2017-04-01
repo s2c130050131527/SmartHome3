@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements LoadJSONTask.Listener{
+public class Main2Activity extends AppCompatActivity implements LoadJSONTask.Listener{
 
     private ListView mListView;
     private final String URL="http://192.168.0.107/test.php";
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements LoadJSONTask.List
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("ISit", "onItemClick: "+id);
-                Toast.makeText(MainActivity.this, mAndroidMapList.get(position).get(KEY_NAME), Toast.LENGTH_LONG).show();
+                Toast.makeText(Main2Activity.this, mAndroidMapList.get(position).get(KEY_NAME), Toast.LENGTH_LONG).show();
             }
         });
         new LoadJSONTask(listener).execute(URL);
@@ -50,18 +50,13 @@ public class MainActivity extends AppCompatActivity implements LoadJSONTask.List
             @Override
             public void onClick(View v) {
                 Toast.makeText(ctx,"List Updated",Toast.LENGTH_LONG).show();
-                updateList();
-
+                mAndroidMapList.clear();
+                new LoadJSONTask(listener).execute(URL);
 
             }
         });
 
 
-    }
-
-    private void updateList() {
-        mAndroidMapList.clear();
-        new LoadJSONTask(listener).execute(URL);
     }
 
 
@@ -93,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements LoadJSONTask.List
 
     private void loadListView() {
 
-       ListAdapter adapter = new SimpleAdapter(MainActivity.this, mAndroidMapList, R.layout.list_item,
+        ListAdapter adapter = new Myadapter(Main2Activity.this, mAndroidMapList, R.layout.list_item,
                 new String[] { KEY_NAME, KEY_STATUS },
                 new int[] { R.id.name, R.id.status });
 

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Response {
 
-    private List<DeviceStats> device=new ArrayList<DeviceStats>();
+    private List<DeviceStats> device = new ArrayList<DeviceStats>();
 
     public List<DeviceStats> getDevice() {
         return device;

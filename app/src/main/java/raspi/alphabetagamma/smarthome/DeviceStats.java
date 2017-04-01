@@ -5,14 +5,21 @@ package raspi.alphabetagamma.smarthome;
  */
 
 public class DeviceStats {
+    private String id;
+
+
     private String name;
-    private int status;
+    private String status;
+
+    public String getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 }
