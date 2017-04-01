@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import java.util.Map;
 
 public class Myadapter extends SimpleAdapter {
     private Context ctx;
+
 
 
     /**
@@ -36,6 +38,7 @@ public class Myadapter extends SimpleAdapter {
     public Myadapter(Context context, List<? extends Map<String, ?>> data, int resource, String[] from, int[] to) {
         super(context, data, resource, from, to);
         ctx=context;
+
     }
 
     public View getView(final int position, View convertView, ViewGroup parent){
@@ -55,7 +58,8 @@ public class Myadapter extends SimpleAdapter {
                 onOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ctx,"onoff"+((Map)getItem(position)).get("name"),Toast.LENGTH_SHORT).show();
+                Toast.makeText(ctx,"onoff:"+((Map)getItem(position)).get("ID"),Toast.LENGTH_SHORT).show();
+
 
             }
         });
@@ -63,7 +67,7 @@ public class Myadapter extends SimpleAdapter {
         setTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ctx,"setTimer"+position,Toast.LENGTH_SHORT).show();
+                Toast.makeText(ctx,"setTimer:"+((Map)getItem(position)).get("status"),Toast.LENGTH_SHORT).show();
             }
         });
     return v;

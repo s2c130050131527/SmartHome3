@@ -4,27 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="raspi.alphabetagamma.smarthome.MainActivity">
+    tools:context="raspi.alphabetagamma.smarthome.MainActivity">'
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="368dp"
+        android:layout_height="56dp"
+        android:background="#16348e"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp" />
 
 
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="360dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
 
         android:longClickable="true"
         tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="5dp" />
+        tools:layout_editor_absoluteY="5dp"
+        android:layout_below="@+id/my_toolbar"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/checkstatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Check Status"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/list_view"
-        android:text="Check Status" />
+        android:layout_marginBottom="64dp" />
 
 </RelativeLayout>

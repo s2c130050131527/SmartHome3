@@ -10,7 +10,6 @@ import android.widget.Button;
 
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -44,14 +43,14 @@ public class Main2Activity extends AppCompatActivity implements LoadJSONTask.Lis
                 Toast.makeText(Main2Activity.this, mAndroidMapList.get(position).get(KEY_NAME), Toast.LENGTH_LONG).show();
             }
         });
-        new LoadJSONTask(listener).execute(URL);
+        new LoadJSONTask(ctx, listener).execute(URL);
 
         checkStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ctx,"List Updated",Toast.LENGTH_LONG).show();
                 mAndroidMapList.clear();
-                new LoadJSONTask(listener).execute(URL);
+                new LoadJSONTask(ctx, listener).execute(URL);
 
             }
         });

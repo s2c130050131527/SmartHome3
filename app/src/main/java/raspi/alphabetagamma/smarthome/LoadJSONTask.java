@@ -1,7 +1,9 @@
 package raspi.alphabetagamma.smarthome;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -10,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.List;
 
@@ -18,9 +21,11 @@ import java.util.List;
  */
 
 public class LoadJSONTask extends AsyncTask<String, Void, Response> {
-    public LoadJSONTask(Listener listener) {
+    private Context ctx;
+    public LoadJSONTask(Context ctx, Listener listener) {
 
         mListener = listener;
+        this.ctx=ctx;
     }
 
     public interface Listener {
@@ -47,6 +52,7 @@ public class LoadJSONTask extends AsyncTask<String, Void, Response> {
             e.printStackTrace();
             return null;
         }
+
     }
 
     protected void onPostExecute(Response response) {
@@ -56,6 +62,7 @@ public class LoadJSONTask extends AsyncTask<String, Void, Response> {
             mListener.onLoaded(response.getDevice());
 
         } else {
+            Toast.makeText(ctx,"Error:Cant connect to system\nCheck Address",Toast.LENGTH_SHORT).show();
 
             mListener.onError();
         }
