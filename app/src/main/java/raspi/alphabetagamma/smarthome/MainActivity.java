@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements LoadJSONTask.List
 
     private void loadListView() {
 
-       ListAdapter adapter = new SimpleAdapter(MainActivity.this, mAndroidMapList, R.layout.list_item,
+       ListAdapter adapter = new Myadapter(MainActivity.this, mAndroidMapList, R.layout.list_item,
                 new String[] { KEY_NAME, KEY_STATUS },
                 new int[] { R.id.name, R.id.status });
 
