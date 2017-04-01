@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements LoadJSONTask.List
 
        ListAdapter adapter = new Myadapter(MainActivity.this, mAndroidMapList, R.layout.list_item,
                 new String[] { KEY_NAME, KEY_STATUS },
-                new int[] {R.id.name, R.id.status });
+                new int[] {R.id.name, R.id.status },ipAddress);
 
         mListView.setAdapter(adapter);
 
