@@ -61,14 +61,15 @@ public class MainActivity extends AppCompatActivity implements LoadJSONTask.List
         mListView = (ListView) findViewById(R.id.list_view);
         ipAddress=getIpAddress();
         URL=buildURL();
-        Log.d("ISit", "onCreate: "+ipAddress+URL);
+        Log.d("ISit", "onCreate: "+URL);
         LoadJSONTask task= new LoadJSONTask(ctx,listener);
-
+        task.execute(URL);
+        loadListView();
 
         checkStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ctx,"List Updated",Toast.LENGTH_LONG).show();
+//                Toast.makeText(ctx,"List Updated",Toast.LENGTH_LONG).show();
                 updateList();
 
 
@@ -127,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements LoadJSONTask.List
         }
     }
 
-    private void updateList() {
+    public void updateList() {
         mAndroidMapList.clear();
         new LoadJSONTask(ctx, listener).execute(URL);
     }

@@ -60,20 +60,15 @@ public class Myadapter extends SimpleAdapter {
                 onOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(((Map)getItem(position)).get("status").equals("1")) {
-                    ((Map) getItem(position)).put("status", "0");
-                }
-                else{
-                    ((Map) getItem(position)).put("status", "1");
-                }
                 String onoff="/smarthome/switch.php?id=";
                 String id=((Map)getItem(position)).get("ID").toString();
                 String URL="http://"+ipAddress+onoff+id;
                 SwitchTask switchTask=new SwitchTask();
                 switchTask.execute(URL);
 //                Toast.makeText(ctx,URL,Toast.LENGTH_SHORT).show();
-                notifyDataSetChanged();
-
+                if(ctx instanceof MainActivity){
+                    ((MainActivity)ctx).updateList();
+                }
             }
         });
 
