@@ -1,10 +1,13 @@
 package raspi.alphabetagamma.smarthome;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
@@ -47,21 +50,26 @@ public class Myadapter extends SimpleAdapter {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ctx,"onclick item",Toast.LENGTH_SHORT).show();
+              //do nothing;
             }
         });
 
             Button onOff= (Button) v.findViewById(R.id.onoff);
 
 
-        Button setTimer= (Button) v.findViewById(R.id.settime);
+        ImageButton setTimer= (ImageButton) v.findViewById(R.id.settime);
 
 
                 onOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String onoff="/smarthome/switch.php?id=";
-                String id=((Map)getItem(position)).get("ID").toString();
+                String id="";
+                try {
+                    id = ((Map) getItem(position)).get("ID").toString();
+                }catch(Exception e){
+                    Toast.makeText(ctx,e.toString(),Toast.LENGTH_SHORT).show();
+                }
                 String URL="http://"+ipAddress+onoff+id;
                 SwitchTask switchTask=new SwitchTask();
                 switchTask.execute(URL);
@@ -69,13 +77,22 @@ public class Myadapter extends SimpleAdapter {
                 if(ctx instanceof MainActivity){
                     ((MainActivity)ctx).updateList();
                 }
+
             }
         });
 
         setTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ctx,"setTimer:"+((Map)getItem(position)).get("status"),Toast.LENGTH_SHORT).show();
+                Bundle b=new Bundle();
+                b.putString("id",((Map) getItem(position)).get("ID").toString());
+                b.putString("ip",ipAddress);
+                Intent i=new Intent(ctx,TimerSetter.class);
+                i.putExtras(b);
+                ((MainActivity)ctx).startActivity(i);
+
+
+
             }
         });
     return v;

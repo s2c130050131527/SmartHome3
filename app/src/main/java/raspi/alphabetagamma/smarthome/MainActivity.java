@@ -18,8 +18,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import android.widget.CompoundButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements LoadJSONTask.List
     private Button checkStatus=null;
     private LoadJSONTask.Listener listener=this;
     private String ipAddress ="";
+    private Switch smartSwitch;
 
 
     private Context ctx=this;
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements LoadJSONTask.List
         mAndroidMapList = new ArrayList<>();
         checkStatus=(Button) findViewById(R.id.checkstatus);
         mListView = (ListView) findViewById(R.id.list_view);
+        smartSwitch= (Switch) findViewById(R.id.switch1);
         ipAddress=getIpAddress();
         URL=buildURL();
         Log.d("ISit", "onCreate: "+URL);
@@ -69,10 +73,23 @@ public class MainActivity extends AppCompatActivity implements LoadJSONTask.List
         checkStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(ctx,"List Updated",Toast.LENGTH_LONG).show();
                 updateList();
 
 
+            }
+        });
+
+        smartSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    SwitchTask task=new SwitchTask();
+                    task.execute("http://"+ipAddress+"/smarthome/smarton.php");
+                }
+                else{
+                    SwitchTask task=new SwitchTask();
+                    task.execute("http://"+ipAddress+"/smarthome/smartoff.php");
+                }
             }
         });
 
@@ -112,6 +129,13 @@ public class MainActivity extends AppCompatActivity implements LoadJSONTask.List
         return null;
     }
     //abc
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateList();
+    }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
